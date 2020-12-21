@@ -10,7 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "mosca": "^2.0.2",
-    "jsonschema": "1.2.6"
+    "jsonschema": "1.2.6",
+    "mongodb": "^3.6.3",
+    "mosca": "^2.0.2"
   }
 }
