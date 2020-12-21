@@ -3,8 +3,7 @@ var mosca = require('mosca');
 var ascoltatore = {
   //using ascoltatore
   type: 'mongo',
- // url: 'mongodb://localhost/mqtt?retryWrites=true&w=majority',
-  url: mongodb+srv://adminDB:epsilon1@cluster0.b7amm.mongodb.net/yai-commander?retryWrites=true&w=majority
+  url: process.env.DB_HOST || 'mongodb://localhost/mqtt?retryWrites=true&w=majority',
   pubsubCollection: 'clients',
   mongo: {}
 };
