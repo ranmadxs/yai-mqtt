@@ -39,5 +39,10 @@ function setup() {
 
 mqttServer.attachHttpServer(httpServ);
 
-httpServ.listen(process.env.PORT || 8080);
+var server_port = process.env.PORT || 8089;
+httpServ.listen(server_port, function() {
+    console.log('Listening on port %d', server_port);
+});
+
+
 
