@@ -1,6 +1,8 @@
 var mosca = require('mosca');
 var http = require('http');
-
+const express = require('express')
+const app = express()
+const LOCAL_PORT = 3000
 
 var ascoltatore = {
   //using ascoltatore
@@ -16,10 +18,11 @@ httpServ = http.createServer();
 
 var settings = {
   port: 1883,
+  //host: "192.168.0.171",
   // backend: ascoltatore
 };
 
-let mqttServer = new mosca.Server(settings);
+/*let mqttServer = new mosca.Server(settings);
 
 mqttServer.on('clientConnected', function(client) {
     console.log('client connected', client.id);
@@ -38,11 +41,21 @@ function setup() {
 }
 
 mqttServer.attachHttpServer(httpServ);
+*/
+app.get('/', (req, res) => {
+  res.send('Hello World!')
+})
 
-var server_port = process.env.PORT || 8089;
-httpServ.listen(server_port, function() {
-    console.log('Listening on port %d', server_port);
-});
+var server_port = process.env.PORT || LOCAL_PORT;
+
+app.listen(server_port, () => {
+  console.log(`Example app listening on port ${server_port}`)
+})
+
+//var server_port = process.env.PORT || LOCAL_PORT;
+//httpServ.listen(server_port, function() {
+//    console.log('Listening on port %d', server_port);
+//});
 
 
 
