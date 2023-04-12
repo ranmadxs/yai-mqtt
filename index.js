@@ -17,6 +17,7 @@ var mqttTopics = {
   'MQTT_TOPIC_ALL': 'yai-mqtt/#',
   'MQTT_TOPIC_OUT': 'yai-mqtt/out'
 }
+var httpServer = http.createServer(app); 
 
 var mqttClient  = mqtt.connect("mqtt://broker.hivemq.com", mqttOptions);
 mqttClient.on("connect",function(){	
@@ -26,11 +27,11 @@ mqttClient.on("connect",function(){
 //const enableWs = require('express-ws')
 //enableWs(app)
 const WebSocket = require('ws');
-const wss = new WebSocket.Server({ port: 8080 });
+const wss = new WebSocket.Server({ server: httpServer });
 const WebSocketClient = require('websocket').client;
 
 var wsClient = new WebSocketClient();
-wsClient.connect('ws://localhost:8080/', 'echo-protocol');
+wsClient.connect('ws://localhost:3000/', 'echo-protocol');
 
 //console.log(wsClient);
 wsClient.on('connectFailed', function(error) {
@@ -128,7 +129,6 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 })
 */
-var httpServer = http.createServer(app); 
 app.engine('html', require('ejs').renderFile);
 //app.engine('html', engine.mustache);
 //app.set('view engine', 'ejs');
