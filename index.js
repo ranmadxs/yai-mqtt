@@ -48,7 +48,7 @@ wsClient.on('connect', function(connection) {
 
 var mqttClient  = mqtt.connect("mqtt://broker.hivemq.com", mqttOptions);
 mqttClient.on("connect",function(){	
-  console.log(`mqtt ${mqttOptions.clientId} connected`);
+  console.log(`mqtt ${mqttOptions.clientId} connected_v2`);
   mqttClient.subscribe(mqttTopics.MQTT_TOPIC_OUT);
 });
 
