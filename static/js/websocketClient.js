@@ -16,7 +16,7 @@ $( document ).ready(function() {
   console.log( "wsClient init!" );
   counterDiv = document.getElementById('counterDiv');
 
-  var connection = new WebSocket('ws://' + location.hostname + ':8080/', ['arduino']);
+  var connection = new WebSocket('wss://' + location.hostname + ':8080/', ['arduino']);
   $("#clearBtn").click(function(){
     $("#counterDiv").empty();
     console.log("clear logs");
