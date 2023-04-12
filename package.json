@@ -16,7 +16,7 @@
     "express-ws": "^5.0.2",
     "jsonschema": "1.2.6",
     "mongodb": "^3.6.3",
-    "mosca": "^2.0.2",
+    "mosca": "^2.8.3",
     "mqtt": "^4.3.7",
     "mustache": "^4.2.0",
     "websocket": "^1.0.34",
