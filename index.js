@@ -14,14 +14,15 @@ var ascoltatore = {
   mongo: {}
 };
 
-httpServ = http.createServer();
+//httpServ = http.createServer();
 
+/*
 var settings = {
   port: 1883,
   //host: "192.168.0.171",
   // backend: ascoltatore
 };
-
+*/
 /*let mqttServer = new mosca.Server(settings);
 
 mqttServer.on('clientConnected', function(client) {
@@ -41,11 +42,12 @@ function setup() {
 }
 
 mqttServer.attachHttpServer(httpServ);
-*/
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
+*/
 
+app.use(express.static('public'))
 var server_port = process.env.PORT || LOCAL_PORT;
 
 app.listen(server_port, () => {

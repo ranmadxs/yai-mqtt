@@ -1,0 +1,35 @@
+
+html {
+  font-family: Arial;
+  display: inline-block;
+  margin: 0px auto;
+}
+.line-1 {
+  height: 5px;
+  background: linear-gradient(
+    to bottom,
+    transparent 2px,
+    black 2px,
+    black 3px,
+    transparent 3px
+  );
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
+.divClass {
+  height: 195px;
+  width: 100%;
+  overflow: scroll;
+  font-size: 0.675rem;
+  line-height: 1.5;
+  margin-bottom: 1.25rem;
+     
+}
+
+.wrapper {
+  background-color: #2d4e5a;
+  height: 200px;
+  width: 200px;
+  position: relative;
+}
