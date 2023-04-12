@@ -46,14 +46,16 @@ wsClient.on('connect', function(connection) {
   
 });
 
+var mqttClient  = mqtt.connect("mqtt://broker.hivemq.com", mqttOptions);
+mqttClient.on("connect",function(){	
+  console.log(`mqtt ${mqttOptions.clientId} connected`);
+  mqttClient.subscribe(mqttTopics.MQTT_TOPIC_OUT);
+});
+
 wss.on('connection',  (ws) => {
   console.info("websocket connection open");
   ws.on('error', console.error);
-  var mqttClient  = mqtt.connect("mqtt://broker.hivemq.com", mqttOptions);
-  mqttClient.on("connect",function(){	
-    console.log(`mqtt ${mqttOptions.clientId} connected`);
-    mqttClient.subscribe(mqttTopics.MQTT_TOPIC_OUT);
-  })
+
   mqttClient.on('message', async function (topic, message) {
     // message is Buffer
     //console.log(message.toString());
