@@ -17,6 +17,12 @@ var mqttTopics = {
   'MQTT_TOPIC_ALL': 'yai-mqtt/#',
   'MQTT_TOPIC_OUT': 'yai-mqtt/out'
 }
+
+var mqttClient  = mqtt.connect("mqtt://broker.hivemq.com", mqttOptions);
+mqttClient.on("connect",function(){	
+  //console.log(`mqtt ${mqttOptions.clientId} connected_v4`);
+  mqttClient.subscribe(mqttTopics.MQTT_TOPIC_OUT);
+});
 //const enableWs = require('express-ws')
 //enableWs(app)
 const WebSocket = require('ws');
@@ -44,12 +50,6 @@ wsClient.on('connect', function(connection) {
       }
   });
   
-});
-
-var mqttClient  = mqtt.connect("mqtt://broker.hivemq.com", mqttOptions);
-mqttClient.on("connect",function(){	
-  console.log(`mqtt ${mqttOptions.clientId} connected_v2`);
-  mqttClient.subscribe(mqttTopics.MQTT_TOPIC_OUT);
 });
 
 wss.on('connection',  (ws) => {
