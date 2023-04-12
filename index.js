@@ -3,9 +3,11 @@ var http = require('http');
 const express = require('express');
 var engine = require('consolidate');
 const app = express()
+const fs = require("fs");
 const LOCAL_PORT = 3000
 var pjson = require('./package.json');
 var mqtt    = require('mqtt');
+var last_Message = {};
 var mqttOptions = {
   clientId:"mqttjs01",
   username: 'test',
@@ -17,15 +19,43 @@ var mqttTopics = {
   'MQTT_TOPIC_ALL': 'yai-mqtt/#',
   'MQTT_TOPIC_OUT': 'yai-mqtt/out'
 }
-var httpServer = http.createServer(app); 
+
+const options = {
+  key: fs.readFileSync('key.pem'),
+  cert: fs.readFileSync('cert.pem')
+}
+
+
+//var httpServer = https.createServer(options, app); 
+var httpServer = http.createServer({server: app}); 
 
 var mqttClient  = mqtt.connect("mqtt://broker.hivemq.com", mqttOptions);
 mqttClient.on("connect",function(){	
   //console.log(`mqtt ${mqttOptions.clientId} connected_v4`);
   mqttClient.subscribe(mqttTopics.MQTT_TOPIC_OUT);
 });
+mqttClient.on('message', async function (topic, message) {
+  // message is Buffer
+  console.log(message.toString());
+  //wss.handleUpgrade( (ws) => {
+  //ws.send(message.toString());
+  //}); 
+  //wsClient.send("XDDD"); 
+  jsonObj = JSON.parse(message);
+  last_Message = jsonObj;
+  //console.log(jsonObj["type"]);
+  if(String(jsonObj["type"]) == "YAI_TANK_HEIGHT"){
+    //console.log("XD5555::"+jsonObj["distance"]);
+    //setHight(jsonObj["height"]);
+    //updateLookupTableValue(jsonObj["volume"]);
+    //updateChangeRateValue(jsonObj["water_flow"]);
+  }
+
+});
+
 //const enableWs = require('express-ws')
 //enableWs(app)
+/*
 const WebSocket = require('ws');
 const wss = new WebSocket.Server({ server: httpServer });
 const WebSocketClient = require('websocket').client;
@@ -85,6 +115,7 @@ var ascoltatore = {
   pubsubCollection: 'clients',
   mongo: {}
 };
+*/
 //const char* MQTT_TOPIC_IN = "yai-mqtt/in"; //IN
 //const char* MQTT_TOPIC_ALL = "yai-mqtt/#"; //IN
 //const char* MQTT_TOPIC_OUT = "yai-mqtt/out";
@@ -144,11 +175,17 @@ app.get('/', (req, res) => {
   });
 })
 
+app.get('/tanklevel', (req, res) => {
+  //res.send('Hello World!');
+  //res.setHeader('Content-Type', 'application/json');
+  res.json(last_Message);
+})
+
 app.use(express.static('static'))
 var server_port = process.env.PORT || LOCAL_PORT;
 
-httpServer.listen(server_port, () => {
-  console.log(`Mqtt ${pjson.version} listening on port ${server_port}`);
+app.listen(server_port, () => {
+  console.log(`Mqtt::http ${pjson.version} listening on port ${server_port}`);
 });
 
 /*

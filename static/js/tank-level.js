@@ -1,11 +1,11 @@
-function tankLevelCallback(str){
+function tankLevelCallback(jsonObj){
   try {
     //console.log(str); 
-    jsonObj = JSON.parse(str);
+    //jsonObj = JSON.parse(str);
     //console.log(jsonObj);
-    //console.log(jsonObj["type"]);
+    console.log(jsonObj["type"]);
     if(String(jsonObj["type"]) == "YAI_TANK_HEIGHT"){
-      //console.log("XD5555"+jsonObj["distance"]);
+      console.log("XD5555"+jsonObj["distance"]);
       setHight(jsonObj["height"]);
       updateLookupTableValue(jsonObj["volume"]);
       updateChangeRateValue(jsonObj["water_flow"]);
