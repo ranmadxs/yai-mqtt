@@ -1,9 +1,6 @@
-var mosca = require('mosca');
 var http = require('http');
 const express = require('express');
-var engine = require('consolidate');
 const app = express()
-const fs = require("fs");
 const LOCAL_PORT = 3000
 var pjson = require('./package.json');
 var mqtt    = require('mqtt');
@@ -20,10 +17,6 @@ var mqttTopics = {
   'MQTT_TOPIC_OUT': 'yai-mqtt/out'
 }
 
-const options = {
-  key: fs.readFileSync('key.pem'),
-  cert: fs.readFileSync('cert.pem')
-}
 
 
 //var httpServer = https.createServer(options, app); 
